@@ -2,7 +2,7 @@
 // Description: Manage your prompt templates
 // Author: Josh Mabry
 // Twitter: @AI_Citizen
-// Shortcut: cmd+shift+p
+// Shortcut: cmd+shift+M
 
 import "@johnlindquist/kit";
 

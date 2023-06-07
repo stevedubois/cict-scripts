@@ -1,5 +1,5 @@
 /*
-# Prompt Anything
+# Prompt Anywhere
 Highlight some text and run this script to prompt against it.
 Useful for summarizing text, generating a title, or any other task you can think of.
 
@@ -33,7 +33,7 @@ Useful for summarizing text, generating a title, or any other task you can think
 // Description: Custom prompt for any highlighted text
 // Author: Josh Mabry
 // Twitter: @AI_Citizen
-// Shortcut: alt shift enter
+// Shortcut: Cmd shift P
 
 //##################
 // ScriptKit Imports
@@ -57,7 +57,13 @@ let openAIApiKey = await env("OPENAI_API_KEY", {
   hint: `Grab a key from <a href="https://platform.openai.com/account/api-keys">here</a>`,
 });
 
-const prompts = await getSnipsByTag("prompt-anything");
+const defaultTemp = 0.7;
+const defaultModel = "gpt-3.5-turbo";
+let temp = defaultTemp;
+let model = defaultModel;
+let info = "";
+let extra = '';
+const prompts = await getSnipsByTag("prompt-anywhere");
 const promptChoices = Object.entries(prompts).map(([key, value]) => {
   return { name: value.name, value: value.snippet };
 });
@@ -65,23 +71,74 @@ const promptChoices = Object.entries(prompts).map(([key, value]) => {
 // System input / Task for the AI to follow
 let userSystemInput = await arg(
   {
-    placeholder: "Summarize this passage",
+    placeholder: "Typ eerste letters, kies prompt of schrijf eigen prompt",
     strict: false,
   },
   promptChoices
 );
 
+// Options
+const optionsHint = `Optioneel (druk enter om over te slaan):
+0.0 : Temperatuur van de respons van 0.0 (strikt) tot 1.0 (Creatief)
++ Uitgebreidere respons  ++ Erg uitgebreide respons
+- Kortere respons  -- Erg korte respons
+@4 : GPT4 (nog niet beschikbaar)
+Voorbeeld: 0.3-- Temperatuur 0.3 (redelijk strict) en erg beknopte respons`;
+let options = await arg(
+  {
+    strict: false,
+    hint: optionsHint
+  },
+);
+
 // User Prompt from highlighted text
 let userPrompt = await getSelectedText();
+userPrompt = `
+"
+${userPrompt}
+"
+`;
+
 
 //#################
 // Prompt Template
 //#################
 const formatPrompt = (prompt) => {
-  return `##### Ignore prior instructions
-- Return answer in markdown format
-- You are tasked with the following
-${prompt}
+  let newprompt = prompt;
+  if (prompt.startsWith("[Temperature:")) {
+    let firstBracketText = /\[(.*?)\]/gm.exec(prompt)[1];
+    let extractedTemp = isNaN(Number(firstBracketText.replace("Temperature:", ""))) ? -1 : Number(firstBracketText.replace("Temperature:", ""));
+    newprompt = prompt.replace(`[${firstBracketText}]`, "");
+    if (extractedTemp >= 0 && extractedTemp <= 1) {
+      temp = extractedTemp;
+    }
+  }
+  let optionsTempString = options.replaceAll(/[+\-@4]/g, '');
+  let optionsTemp = isNaN(Number(optionsTempString)) ? -1 : Number(optionsTempString);
+  if (optionsTempString != '' && optionsTemp >= 0 && optionsTemp <= 1) {
+    temp = optionsTemp;
+  }
+  if (options.match('@4')) {
+    model = "gpt-4";
+  }
+  const plus = (options.match(/\+/g) || []).length;
+  const min = (options.match(/\-/g) || []).length;
+  if (plus > 0) {
+    extra = "Provide a reasonably extensive, detailed response.";
+    if (plus > 1) {
+      extra = "Provide a very extensive and detailed response.";
+    }
+  } else if (min > 0) {
+    extra = "Keep it rather concise.";
+    if (min > 1) {
+      extra = "Keep it very concise";
+    }
+  }
+  return `
+##### Ignore prior instructions
+Return answer in markdown format
+${newprompt}
+${extra}
 ########
 `;
 };
@@ -120,8 +177,8 @@ let toast = null;
 let chatStarted = false;
 const llm = new ChatOpenAI({
   // 0 = "precise", 1 = "creative"
-  temperature: 0.3,
-  // modelName: "gpt-4", // uncomment to use GPT-4 (requires beta access)
+  temperature: temp,
+  modelName: model, // GPT-4 requires beta access
   openAIApiKey: openAIApiKey,
   // turn off to only get output when the AI is done
   streaming: true,
@@ -129,6 +186,15 @@ const llm = new ChatOpenAI({
     {
       handleLLMStart: async () => {
         log(`handleLLMStart`);
+        log(`used temperature: ${temp}`);
+        log(`used chat-model: ${model}`);
+        log(`used prompt: ${formattedPrompt}`);
+        log(`used text to handle: \n${userPrompt}`);
+        info = `
+        * used chat-model: ${model}
+        * used temperature: ${temp}
+        * exta: ${extra}
+        `;
       },
       handleLLMNewToken: async (token) => {
         // each new token is appended to the current message
@@ -136,7 +202,7 @@ const llm = new ChatOpenAI({
         currentMessage += token;
         // render current message
         await div({
-          html: md(priorMessage + "\n\n" + currentMessage),
+          html: md(priorMessage + "\n" + currentMessage),
           onEscape: async () => {
             cancelChat();
           },
@@ -157,9 +223,9 @@ const llm = new ChatOpenAI({
         chatStarted = false;
       },
       handleLLMEnd: async () => {
+        log(`output: \n\n${currentMessage}`);
         log(`handleLLMEnd`);
-        chatStarted = false;
-        let html = md(priorMessage + "\n\n" + currentMessage);
+        let html = md(priorMessage + "\n\n" + currentMessage + "\n\n" + "\n\n" + "\n\n" + info);
         await div({
           html,
           shortcuts: [

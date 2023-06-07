@@ -1,63 +1,42 @@
-# Artificial Citizens x Script Kit
+# CICT Scriptkit
 
-<p>A collection of tools and experiments to bring AI to your fingertips with the power with ScriptKit.</p>
+<p>"Deze scripts bieden een verzameling van tools en experimenten waarmee je AI binnen handbereik hebt op je pc."</p>
 
-## How to Use
+## Hoe te gebruiken
 
-- Install [ScriptKit](https://www.scriptkit.com/) for your OS
+- Installeer [ScriptKit](https://www.scriptkit.com/) voor je besturingssysteem.
 
-- Once installed and opened (look for an app named Kit if you can't find it) navigate to the `kit` tab to get to the settings for the tool.
+- Nadat de app is geïnstalleerd en geopend (zoek naar een app genaamd Kit als je deze niet kunt vinden), ga je naar het 'kit'-tabblad om naar de instellingen van de tool te gaan.
 
-- Scroll or begin typing "kenv" and to see the option for managing KENVs. These are just separate environments to keep scripts separate
+- Om KENV's te beheren, kun je scrollen of beginnen met typen van "kenv" om de optie te zien. Dit zijn afzonderlijke omgevingen om scripts gescheiden te houden.
 
 ![https://i.ibb.co/tcSf3fd/a.png](https://i.ibb.co/tcSf3fd/a.png)
 
-- Go to "Clone Kenv" and press enter
+- Ga naar "Clone Kenv" en druk op enter.
 
-![https://ibb.co/6PPkGCg](https://i.ibb.co/MVVmK0M/b.png)
+- Geef volgende repository op en druk op enter: https://github.com/stevedubois/cict-scripts
 
-- Enter this repo and press enter
+Klik dan eerst ctrl+shift+O om de prompts organisator te openen.
+Dit maakt de prompts klaar.
+Je mag het verder sluiten.
 
-![https://i.ibb.co/XLwFD2K/Screenshot-2023-05-02-at-9-11-56-AM.png](https://i.ibb.co/XLwFD2K/Screenshot-2023-05-02-at-9-11-56-AM.png)
+Kies dan ergens een tekst, sta met je cursor op de tekst en klik ctrl+shift+p om de prompt te kiezen dat je wil laten lopen op die geselecteerde tekst.
 
-You now have access to the various tools we have to play with, the info for how to use each tool
-lives in the repo.
+De eerste keer wordt u gevraagd om de afhankelijkheden te installeren en benodigde API-sleutel in te voeren.
 
-You'll be prompted to install the dependencies for the scripts and enter any API keys needed.
+## Updaten van scripts
 
-## Updating Scripts
+Om uw scripts bij te werken, gaat u terug naar het tabblad 'Kit' en klikt u op 'Manage Kenv'. Vervolgens selecteert u de optie 'Pull Kenv'. Kies de Kenv die u wilt bijwerken, bijvoorbeeld 'cict-scripts'.
 
-To update your scripts navigate back to the Kit tab and Manage Kenv and use the Pull Kenv option
+Gereed voor de nieuwste tools aangedreven door AI.
 
-![https://ibb.co/cNQhMc0](https://i.ibb.co/8j9gTDq/e.png)
-
-Select the Kenv to update
-
-![https://ibb.co/fdDFz2y](https://i.ibb.co/yF4PcXZ/f.png)
-
-All updated and ready for the latest AI powered tools
-
-## Modifying Scripts
-
-Everything here is completely modifiable, you could start by modifying the prompt to your needs or updating your hotkey
-
-- Highlight the script you want to edit and select the Edit button at the bottom (cmd+o)
-
-![https://i.ibb.co/vXVFChK/g.png](https://i.ibb.co/vXVFChK/g.png)
-
-- Here in the shortcut meta-data you can add what hotkeys you want, for instance, as explained [here](https://github.com/johnlindquist/kit/blob/main/GUIDE.md#-shortcut-metadata)
-
-![https://i.ibb.co/qF6h9hr/h.png](https://i.ibb.co/qF6h9hr/h.png)
-
-## Issues
-
-- Report any issues specific to the ai-scripts in our Kenv in our [Github Issue](https://github.com/artificialcitizens/ac-scripts/issues) tracker
-- Any issues related to ScriptKit should be reported to their [Issue](https://github.com/johnlindquist/kit/issues) tracker
-
-## Ideas or Suggestions?
-
-- Reach out on Twitter at [@AI_Citizen](https://twitter.com/AI_Citizen)
+Als je de bijgewerkte prompts wilt gebruiken, navigeer dan naar: %USERPROFILE%\.kenv\kenvs\cict-scripts\db.
+Maak en hernoem prompts.json (dan heb je nog een backup van de oude prompts).
+Ctrl+shift+o: de bijgewerkte prompts zullen gegeneerd worden.
 
 ## Thanks
 
-None of this would be possible without [John Lindquist](https://twitter.com/johnlindquist) and [ScriptKit](https://www.scriptkit.com/) or the amazing work of [Harrison Chase](https://twitter.com/HWChase17) and the [Langchain](https://docs.langchain.com/docs/) library.
+This is a adjustment of the following project:
+https://github.com/stevedubois/cict-scripts
+
+Thanks for making this public and possible to modify.

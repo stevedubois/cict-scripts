@@ -428,7 +428,7 @@ export const seedPrompts = async () => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         description: "Genereer 3 variaties van mogelijke antwoorden op de geselecteerde tekst",
-        snippet: "De tekst is een mail die ik moet beantwoorden.\nGenereer mmij achtereenvolgend 3 variaties van een mogelijk antwoord op deze mail, op basis van de volgende instructies:\n- Lever enkel jouw suggestie voor het antwoord zelf zonder afsluitingsgroet en ondertekening.\n- Hou het verder professioneel, maar gebruik wel een informele sfeer.\nGenereer mij achtereenvolgend 3 variaties van een mogelijk antwoord op deze mail met behulp van de volgende regels:\n-Hou het professioneel, maar gebruik wel een informele sfeer.\n-Geef elke voorstel een titel: Voorstel 1, Voorstel 2 en Voorstel 3.",
+        snippet: "De tekst is een mail die ik moet beantwoorden.\nGenereer mmij achtereenvolgend 3 variaties van een mogelijk antwoord op deze mail, op basis van de volgende instructies:\n- Lever enkel jouw suggestie voor het antwoord zelf zonder afsluitingsgroet en ondertekening.\n- Hou het verder professioneel, maar gebruik wel een informele sfeer.\n-Geef elke voorstel een titel: Voorstel 1, Voorstel 2 en Voorstel 3.",
         tags: ["prompt-anywhere"],
       },
       [uuid()]: {

@@ -225,9 +225,9 @@ const llm = new ChatOpenAI({
       handleLLMEnd: async () => {
         log(`output: \n\n${currentMessage}`);
         log(`handleLLMEnd`);
-        let html = md(priorMessage + "\n\n" + currentMessage + "\n\n" + "\n\n" + "\n\n" + info);
+        let html = md(priorMessage + "\n\n" + currentMessage +  "\n\n" + "\n\n" + "\n\n" + info);
         await div({
-          html,
+          htmlPlusInfo,
           shortcuts: [
             {
               name: "Reply",

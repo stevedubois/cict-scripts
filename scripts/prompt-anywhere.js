@@ -167,7 +167,7 @@ const pasteTextAndExit = async (text) => {
  * @param {*} text
  */
 const copyToClipboardAndExit = async (text) => {
-  await clipboard.writeText(currentMessage);
+  await clipboard.writeText(currentMessage.replace(/`/g, ""));
   exit();
 };
 
@@ -191,9 +191,9 @@ const llm = new ChatOpenAI({
         log(`used prompt: ${formattedPrompt}`);
         log(`used text to handle: \n${userPrompt}`);
         info = `
-        * used chat-model: ${model}
-        * used temperature: ${temp}
-        * exta: ${extra}
+        - used chat-model: ${model}
+        - used temperature: ${temp}
+        - exta: ${extra}
         `;
       },
       handleLLMNewToken: async (token) => {
@@ -223,11 +223,11 @@ const llm = new ChatOpenAI({
         chatStarted = false;
       },
       handleLLMEnd: async () => {
-        log(`output: \n\n${currentMessage}`);
+        log(`output: \n\n${currentMessage.replace(/`/g, "")}`);
         log(`handleLLMEnd`);
         let html = md(priorMessage + "\n\n" + currentMessage +  "\n\n" + "\n\n" + "\n\n" + info);
         await div({
-          htmlPlusInfo,
+          html,
           shortcuts: [
             {
               name: "Reply",
@@ -243,7 +243,7 @@ const llm = new ChatOpenAI({
                     html,
                   }
                 );
-                priorMessage += currentMessage;
+                priorMessage += currentMessage + "\n\n";
                 currentMessage = "";
                 await llm.call([
                   new SystemChatMessage(formattedPrompt),
@@ -271,7 +271,7 @@ const llm = new ChatOpenAI({
               bar: "right",
               onPress: async () => {
                 await editor({
-                  value: currentMessage,
+                  value: currentMessage.replace(/`/g, ""),
                   onEscape: async (state) =>
                     await copyToClipboardAndExit(state),
                   onSubmit: async (state) => await pasteTextAndExit(state),
@@ -283,7 +283,7 @@ const llm = new ChatOpenAI({
               key: `${cmd}+c`,
               bar: "right",
               onPress: async () => {
-                await clipboard.writeText(currentMessage);
+                await clipboard.writeText(currentMessage.replace(/`/g, ""));
                 toast(`Copied`);
                 setTimeout(() => {
                   exitChat();
@@ -295,7 +295,7 @@ const llm = new ChatOpenAI({
               key: `${cmd}+p`,
               bar: "right",
               onPress: async () => {
-                await setSelectedText(currentMessage);
+                await setSelectedText(currentMessage.replace(/`/g, ""));
                 setTimeout(() => {
                   exitChat();
                 }, 1000);

@@ -18,7 +18,7 @@
 
 - Geef volgende repository op en druk op enter: https://github.com/stevedubois/cict-scripts
 
--De naam en directory mag zijn: cict-scripts (geef dit op als er naar gevraagd wordt).
+- De naam en directory mag zijn: cict-scripts (geef dit op als er naar gevraagd wordt).
 
 Klik dan eerst ctrl+shift+O om de prompts organisator te openen.
 Dit maakt de prompts klaar.

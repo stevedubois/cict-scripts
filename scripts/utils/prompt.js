@@ -288,6 +288,55 @@ export const getSnipsByTag = async (tagName) => {
 
   return snipsWithTag;
 };
+/**
+ * Import a prompt (overwrite when already exists)
+ * @returns {Promise<void>}
+ */
+export const importPrompt = async (dbName, title, comment, content) => {
+  const tags = ["prompt-anywhere"];
+  const prompts = await db(dbName);
+  await prompts.read();
+  const id = Object.keys(prompts.data.snips).find(key => prompts.data.snips[key].name === title);
+
+  if (id) {
+    //update;
+    prompts.data.snips[id].description = comment;
+    prompts.data.snips[id].snippet = content;
+    prompts.data.snips[id].updatedAt = new Date().toISOString();
+    await prompts.write();
+    log("updated");
+    return;
+  } else {
+    let promptName = title;
+    let id = uuid();
+    prompts.data.snips[id] = {
+      name: title,
+      description: comment,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      snippet: content,
+      tags: tags,
+    };
+    await prompts.write();
+  };
+};
+
+export const ChangePromptName = async (dbName, oldTitle, newTitle) => {
+  const prompts = await db(dbName);
+  await prompts.read();
+  const id = Object.keys(prompts.data.snips).find(key => prompts.data.snips[key].name === oldTitle);
+
+  if (id) {
+    prompts.data.snips[id].name = newTitle;
+    await prompts.write();
+    return;
+  } else {
+    return;
+  }
+};
+
+
+
 
 // // Usage example:
 // const data = {

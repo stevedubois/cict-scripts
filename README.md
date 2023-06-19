@@ -34,9 +34,8 @@ Om de scripts bij te werken, gaat je terug naar het tabblad 'Kit' en klik je op 
 
 Gereed voor de nieuwste tools aangedreven door AI.
 
-Als je de bijgewerkte prompts wilt gebruiken, navigeer dan naar: %USERPROFILE%\.kenv\kenvs\cict-scripts\db.
-Maak en hernoem prompts.json (dan heb je nog een backup van de oude prompts).
-Ctrl+shift+o: de bijgewerkte prompts zullen gegeneerd worden.
+Als je de bijgewerkte prompts wilt gebruiken, open dan Prompt-manager.
+Bij settings kies je vervolgens Import.
 
 ## Thanks
 

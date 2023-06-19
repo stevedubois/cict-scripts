@@ -1,7 +1,8 @@
 import "@johnlindquist/kit";
-import { editPrompts } from "./prompt.js";
+import { ChangePromptName, editPrompts, importPrompt } from "./prompt.js";
 import { editTags, renderTags } from "./tags.js";
 import { stripSquareBrackets } from "./helpers.js";
+import { read } from "fs";
 
 // const exportJSON = async (dbName, filterTags = []) => {
 //   const dBase = await db(dbName);
@@ -88,6 +89,40 @@ const exportMarkdown = async (
   await writeFile(`${path}/${fileName}.md`, markdown);
 };
 
+const importMarkdown = async (
+  dbName,
+  fileName = "prompt-updates",
+) => {
+  const promptupdates = await readFile(home(".kenv/kenvs/cict-scripts/scripts",`${fileName}.md`),"utf-8");
+  
+  // Extract the section between "# Naamswijzigingen" and the next "# Naamswijzigingen"
+  const namechangesSections = promptupdates.split('# Naamswijzigingen');
+  const relevantSection = namechangesSections[1];  // we want the second section
+  // Split the section into lines and keep only those starting with '@'
+  const lines = relevantSection.split('\n').filter(line => line.startsWith('@'));
+  // Map each line to an object with 'oldname' and 'newname'
+  const objects = lines.map(line => {
+    const parts = line.split('==>>');
+    return {
+        oldname: parts[0].substring(1).trim(),  // Remove the '@' at the start
+        newname: parts[1].trim()
+    };
+  });
+  for (let object of objects) {
+      await ChangePromptName(dbName, object.oldname, object.newname);
+    }
+
+  let sections = promptupdates.split('##').slice(1); // We slice the first element off as it's an empty string
+  for (let section of sections) {
+      let title = section.split('\n')[0].trim(); // Take the first line after each '##' as title
+      let comment = section.match(/_(.*?)_/s)?.[1];
+      let content = section.match(/```.*?\n([\s\S]*?)```/s)?.[1];
+      if (title && comment && content) {
+        await importPrompt(dbName, title, comment, content);
+      }
+  }
+};
+
 export const settings = async (dbName) => {
   const actions = {
     "Manage Prompts": () => editPrompts(dbName),
@@ -106,6 +141,10 @@ export const settings = async (dbName) => {
       // format === "JSON" && (await exportJSON(dbName, tags));
       // format === "YAML" && (await exportYAML(dbName, tags));
     },
+    Import: async () => {
+      await importMarkdown(dbName);
+      toast(`Imported ${fileName}.md to ${dbName}`);
+    },
     Quit: async () => {
       const confirmation = await arg("Are you sure you want to quit?", [
         "[Y]es",
@@ -122,6 +161,7 @@ export const settings = async (dbName) => {
     "Manage Prompts",
     "Manage Tags",
     "Export",
+    "Import",
     "Quit",
   ]);
   await actions[selectedAction]();

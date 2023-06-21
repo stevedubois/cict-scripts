@@ -167,7 +167,7 @@ const pasteTextAndExit = async (text) => {
  * @param {*} text
  */
 const copyToClipboardAndExit = async (text) => {
-  await clipboard.writeText(currentMessage.replace(/`/g, ""));
+  await clipboard.writeText(text.replace(/`/g, ""));
   exit();
 };
 
@@ -272,9 +272,10 @@ const llm = new ChatOpenAI({
               onPress: async () => {
                 await editor({
                   value: currentMessage.replace(/`/g, ""),
-                  onEscape: async (state) =>
-                    await copyToClipboardAndExit(state),
-                  onSubmit: async (state) => await pasteTextAndExit(state),
+                  footer: `Submit = changes to Clipboard`,
+                  onEscape: async (state) => await copyToClipboardAndExit(state),
+                  onAbandon : async (state) => await copyToClipboardAndExit(state),
+                  onSubmit: async (state) => await copyToClipboardAndExit(state),
                 });
               },
             },

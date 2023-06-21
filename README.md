@@ -36,21 +36,23 @@
 - Je kan beginnen typen om de opties die je kan selecteren te beperken
 
 - Je kan ook een gehele eigen prompt typen om uit te voeren op de geseleteerde tekst.
-    - "T - Tekst Nederlands (herschrijf/verbeter/vertaal)" : zet rommelige tekst om in een vloeibare tekst, vebeterd fouten, verandert zinsconstructies, enz... Kan ook vertalen van een andere taal naar het Nederlands.
-    - "TS - Tekst Corrigeer spelling/grammatica - Nederlands : corrigeert tekst die al redelijk goed geschreven is op spelling en gramatica, laat de inhoud ongemoed.
-    - "L Leg uit" : selecteer tekst op een website bvb. en laat de inhoud uitleggen door ChatGPT: Eenvoudige uileg en uitgebreide uitleg.
+
+- Het gemakkelijkste is om één van de voorgeprogrammeerde prompts te gebruiken.
+    - "T - Tekst Nederlands (herschrijf/verbeter/vertaal)" : zet rommelige tekst om in een vloeibare tekst, vebetert fouten, verandert zinsconstructies, enz... Kan ook vertalen van een andere taal naar het Nederlands.
+    - "TS - Tekst Corrigeer spelling/grammatica - Nederlands : corrigeert tekst die al redelijk goed geschreven is op spelling en gramatica, laat de inhoud ongemoeid.
+    - "L Leg uit" : selecteer tekst op een website bvb. en laat de inhoud uitleggen door ChatGPT: Eenvoudige uileg (uitleggen aan een 5-jarige) en uitgebreide uitleg.
     - ...
 
-- Optioneel kan je dan nog (of druk nog eens op "enter" op dit over te slaan)
+- Optioneel kan je dan nog (of druk nog eens op "enter" op dit over te slaan):
     - de temperatuur instellen: van 0.0 (strikt) tot 1.0 (creatief)
-    - uitgebreidere respons of juiste kortere
-    - Chat GPT-4 in plaats van de standaard Chat-GPT-3.5-turbo (voorlopig is deze optie nog niet beschikbaar!)
+    - uitgebreidere respons of juist kortere vragen
+    - gebruik laten maken van GPT-4 in plaats van de standaard Chat-GPT-3.5-turbo (werkt enkel als de api-key goedgekeurd is voor GPT-4 toegang)
 
-- Je krijgt dan je respons van Chat-GPT en daar kan je nog het volgende mee doen:
+- Je krijgt dan je respons van ChatGPT en daar kan je nog het volgende mee doen:
     -Reply: in conversatie gaan met de respons, je kan hierbij bijvragen stellen of vragen het toch nog anders te formuleren, strenger of optimistischer, ...
     -Retry: opnieuw laten genereren als de respons je niet bevalt.
-    -Edit: de respons aanpassen voor je op "submit" klikt, bij "submit" plakt het je aangepaste tekst dan.
-    -Copy: de respons kopiëren naar het clipboard, zodat je het zelf ergens kan gaan plakken
+    -Edit: de respons aanpassen voor je op "submit" klikt, bij "submit" zet het je aangepaste tekst in het klembord.
+    -Copy: de respons kopiëren naar het klembord, zodat je het zelf ergens kan gaan plakken. Op dit moment is het niet mogelijk enkel een deel van de response te kopiëren, wel als je Edit doet en de rest weghaalt en dan "submit" klikt.
     -Paste: de response direct plakken, de tekst die je geselecteerd had vervangen door de respons.
     -Save: de respons opslaan in een bestand.
     -Continue: sluit gewoon het sript-kit scherm.
@@ -67,7 +69,9 @@
 
 - Klik op "Merge"
 
-- Open dan de prompt-manager ctrl+shift+O om eventueel geupdate prompts te importeren: Settings - Import
+- Als dit laatste een foutmelding geeft, moet je eerst op "Stash" klikken en dan nog eens op "Merge".
+
+- Open dan de prompt-manager ctrl+shift+O om eventueel geüpdatet prompts te importeren: Settings - Import
 
 - Klaar!
 

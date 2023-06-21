@@ -29,10 +29,10 @@ Useful for summarizing text, generating a title, or any other task you can think
 - Rinse and repeat
 */
 
-// Name: Prompt Anything
+// Name: Prompt Anywhere v1.2
 // Description: Custom prompt for any highlighted text
 // Author: Josh Mabry
-// Twitter: @AI_Citizen
+// Twitter: @SteveDu83816619
 // Shortcut: Cmd shift P
 
 //##################

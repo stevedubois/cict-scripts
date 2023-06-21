@@ -1,7 +1,7 @@
-// Name: Prompt Manager
+// Name: Prompt Manager v1.2
 // Description: Manage your prompt templates
 // Author: Josh Mabry
-// Twitter: @AI_Citizen
+// Twitter: @SteveDu83816619
 // Shortcut: cmd+shift+O
 
 import "@johnlindquist/kit";

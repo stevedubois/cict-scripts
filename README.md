@@ -8,6 +8,8 @@
 
 - Installeer [ScriptKit](https://www.scriptkit.com/) voor je besturingssysteem.
 
+- Als je een melding krijgt van Microsoft Smartscreen waarin wordt voorkomen dat een onbekende app wordt gestart, volg dan de volgende stappen: klik met de rechtermuisknop op het .exe-bestand; selecteer "Eigenschappen"; zet een vinkje bij "Blokkeren opheffen"; klik op "Toepassen"; nu kan je de software zonder problemen installeren.
+
 - Open de Kit-app:
     - Als het al opgestart is, vind je het als een geel symbooltje in het systeemvak (rechterbenedenhoek van de taakbalk in Windows)
     - Rechtermuisklik erop en klik op "open Kit.app Prompt"
